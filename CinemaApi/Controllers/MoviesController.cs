@@ -1,11 +1,12 @@
-﻿using System;
+﻿using CinemaApi.Data;
+using CinemaApi.Models;
+using CinemaApi.Repositories.Interfaces;
+using CinemaApi.Services;
+using CinemaApi.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using CinemaApi.Data;
-using CinemaApi.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaApi.Controllers
 {
@@ -13,17 +14,17 @@ namespace CinemaApi.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly ApplicationDbContext context;
+        private readonly IMovieService movieService;
 
-        public MoviesController(ApplicationDbContext context)
+        public MoviesController(IMovieService movieService)
         {
-            this.context = context;
+            this.movieService = movieService;
         }
 
         [HttpGet]
-        public ActionResult<Movie> GetMovies()
+        public ActionResult<List<Movie>> GetMovies()
         {
-            return Ok(context.Movies.First());
+            return Ok(movieService.GetAllMovies());
         }
     }
 }

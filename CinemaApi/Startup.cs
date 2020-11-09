@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using CinemaApi.Data;
+using CinemaApi.Repositories;
+using CinemaApi.Repositories.Interfaces;
+using CinemaApi.Services;
+using CinemaApi.Services.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +15,8 @@ namespace CinemaApi
 {
     public class Startup
     {
+        private readonly string Origins = "origins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,6 +33,22 @@ namespace CinemaApi
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             //services.AddControllers();
+
+            //services
+            services.AddScoped<IMovieService, MovieService>();
+
+            //repositories
+            services.AddTransient(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
+            services.AddTransient<IMovieRepository, MovieRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: Origins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200");
+                    });
+            });
 
             services.AddSwaggerGen();
         }
@@ -63,6 +79,8 @@ namespace CinemaApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(Origins);
 
             app.UseAuthentication();
             app.UseAuthorization();
