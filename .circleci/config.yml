@@ -39,7 +39,7 @@
                 command: dotnet build --configuration Release
 
 
-workflows:
+ workflows:
     test_and_build:
         jobs:
             - test
