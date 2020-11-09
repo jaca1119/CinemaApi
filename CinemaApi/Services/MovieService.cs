@@ -1,4 +1,6 @@
-﻿using CinemaApi.Models;
+﻿using AutoMapper;
+using CinemaApi.DTOs.Output;
+using CinemaApi.Models;
 using CinemaApi.Repositories.Interfaces;
 using CinemaApi.Services.Interfaces;
 using System;
@@ -11,15 +13,17 @@ namespace CinemaApi.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository movieRepository;
+        private readonly IMapper mapper;
 
-        public MovieService(IMovieRepository movieRepository)
+        public MovieService(IMovieRepository movieRepository, IMapper mapper)
         {
             this.movieRepository = movieRepository;
+            this.mapper = mapper;
         }
 
-        public IEnumerable<Movie> GetAllMovies()
+        public IEnumerable<MovieDTO> GetAllMovies()
         {
-            return movieRepository.GetAll();
+            return mapper.Map<List<MovieDTO>>(movieRepository.GetAll());
         }
     }
 }

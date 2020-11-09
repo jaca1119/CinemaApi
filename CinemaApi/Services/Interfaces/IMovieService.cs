@@ -1,4 +1,5 @@
-﻿using CinemaApi.Models;
+﻿using CinemaApi.DTOs.Output;
+using CinemaApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace CinemaApi.Services.Interfaces
 {
     public interface IMovieService
     {
-        IEnumerable<Movie> GetAllMovies();
+        IEnumerable<MovieDTO> GetAllMovies();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CinemaApi.Data;
+using CinemaApi.DTOs.Output;
 using CinemaApi.Models;
 using CinemaApi.Repositories.Interfaces;
 using CinemaApi.Services;
@@ -22,7 +23,7 @@ namespace CinemaApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Movie>> GetMovies()
+        public ActionResult<List<MovieDTO>> GetMovies()
         {
             return Ok(movieService.GetAllMovies());
         }

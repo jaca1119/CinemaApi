@@ -1,3 +1,4 @@
+using AutoMapper;
 using CinemaApi.Data;
 using CinemaApi.Repositories;
 using CinemaApi.Repositories.Interfaces;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json.Serialization;
 
 namespace CinemaApi
 {
@@ -32,7 +34,11 @@ namespace CinemaApi
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            //services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
 
             //services
             services.AddScoped<IMovieService, MovieService>();
@@ -40,6 +46,8 @@ namespace CinemaApi
             //repositories
             services.AddTransient(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
             services.AddTransient<IMovieRepository, MovieRepository>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddCors(options =>
             {

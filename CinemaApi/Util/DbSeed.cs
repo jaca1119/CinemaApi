@@ -24,6 +24,7 @@ namespace CinemaApi.Util
             Movie shawshank = new Movie
             {
                 Title = "The Shawshank Redemption",
+                PosterUrl = "https://fwcdn.pl/fpo/10/48/1048/6925401.6.jpg",
                 Description = "Escape from prison",
                 Category = Category.Action,
                 Duration = 118,
@@ -41,6 +42,7 @@ namespace CinemaApi.Util
             Movie starWars = new Movie
             {
                 Title = "Star Wars 4",
+                PosterUrl = "https://fwcdn.pl/fpo/05/20/520/7403025.6.jpg",
                 Description = "Star wars",
                 Category = Category.SciFi,
                 Duration = 180,
