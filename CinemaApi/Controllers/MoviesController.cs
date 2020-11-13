@@ -1,13 +1,7 @@
-﻿using CinemaApi.Data;
-using CinemaApi.DTOs.Output;
-using CinemaApi.Models;
-using CinemaApi.Repositories.Interfaces;
-using CinemaApi.Services;
+﻿using CinemaApi.DTOs.Output;
 using CinemaApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CinemaApi.Controllers
 {

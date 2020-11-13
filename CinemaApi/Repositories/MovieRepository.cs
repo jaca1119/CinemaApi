@@ -2,10 +2,8 @@
 using CinemaApi.Models;
 using CinemaApi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinemaApi.Repositories
 {
@@ -17,7 +15,7 @@ namespace CinemaApi.Repositories
 
         public override IEnumerable<Movie> GetAll()
         {
-            return dbSet.Include(e => e.ScreeningTimes).Include(e => e.Seats).ToList();
+            return dbSet.Include(e => e.ScreeningTimes).ThenInclude(s => s.Rows).ThenInclude(r => r.Seats).ToList();
         }
     }
 }

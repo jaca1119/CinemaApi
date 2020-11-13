@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CinemaApi.Models
@@ -19,6 +18,5 @@ namespace CinemaApi.Models
         public int Duration { get; set; }
         public Category Category { get; set; }
         public List<ScreeningTime> ScreeningTimes { get; set; }
-        public List<Seat> Seats { get; set; }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using CinemaApi.DTOs.Output;
-using CinemaApi.Models;
 using CinemaApi.Repositories.Interfaces;
 using CinemaApi.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinemaApi.Services
 {

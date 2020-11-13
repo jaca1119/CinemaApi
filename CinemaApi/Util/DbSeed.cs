@@ -28,13 +28,9 @@ namespace CinemaApi.Util
                 Description = "Escape from prison",
                 Category = Category.Action,
                 Duration = 118,
-                ScreeningTimes = new List<ScreeningTime> { new ScreeningTime { Screening = DateTime.Now.AddDays(1) }, new ScreeningTime { Screening = DateTime.Now.AddDays(1).AddHours(2).AddMinutes(10) } },
-                Seats = new List<Seat>
-                {
-                    new Seat {Column = 0, Row = 0, Status = SeatStatus.Free},
-                    new Seat {Column = 1, Row = 0, Status = SeatStatus.Free},
-                    new Seat {Column = 0, Row = 1, Status = SeatStatus.Free},
-                    new Seat {Column = 1, Row = 0, Status = SeatStatus.Free}
+                ScreeningTimes = new List<ScreeningTime>
+                { new ScreeningTime { Screening = DateTime.Now.AddDays(1), Rows = GenerateRandomSeats(12, 15) },
+                    new ScreeningTime { Screening = DateTime.Now.AddDays(1).AddHours(2).AddMinutes(10), Rows = GenerateRandomSeats(10, 15) }
                 }
             };
             movies.Add(shawshank);
@@ -46,18 +42,38 @@ namespace CinemaApi.Util
                 Description = "Star wars",
                 Category = Category.SciFi,
                 Duration = 180,
-                ScreeningTimes = new List<ScreeningTime> { new ScreeningTime { Screening = DateTime.Now.AddDays(2) }, new ScreeningTime { Screening = DateTime.Now.AddDays(2).AddHours(5).AddMinutes(32) } },
-                Seats = new List<Seat>
+                ScreeningTimes = new List<ScreeningTime>
                 {
-                    new Seat {Column = 0, Row = 0, Status = SeatStatus.Free},
-                    new Seat {Column = 1, Row = 0, Status = SeatStatus.Excluded},
-                    new Seat {Column = 2, Row = 0, Status = SeatStatus.Taken},
-                    new Seat {Column = 3, Row = 0, Status = SeatStatus.Free}
+                    new ScreeningTime { Screening = DateTime.Now.AddDays(2), Rows = GenerateRandomSeats(4, 5) },
+                    new ScreeningTime { Screening = DateTime.Now.AddDays(2).AddHours(5).AddMinutes(32), Rows = GenerateRandomSeats(5, 5) }
                 }
             };
             movies.Add(starWars);
 
             return movies;
+        }
+
+        private static List<Row> GenerateRandomSeats(int rows, int cols)
+        {
+            List<Row> generatedRows = new List<Row>();
+
+            Array seatStatuses = Enum.GetValues(typeof(SeatStatus));
+            Random random = new Random();
+
+            for (int i = 0; i < rows; i++)
+            {
+                List<Seat> seats = new List<Seat>();
+
+                for (int j = 0; j < cols; j++)
+                {
+                    Seat seat = new Seat { Status = (SeatStatus)seatStatuses.GetValue(random.Next(seatStatuses.Length)) };
+                    seats.Add(seat);
+                }
+
+                generatedRows.Add(new Row { Seats = seats });
+            }
+
+            return generatedRows;
         }
     }
 }

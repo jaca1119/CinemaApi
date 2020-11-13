@@ -9,5 +9,6 @@ namespace CinemaApi.Models
         [Key]
         public int ID { get; set; }
         public DateTime Screening { get; set; }
+        public List<Row> Rows { get; set; }
     }
 }
