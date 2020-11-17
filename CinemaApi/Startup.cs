@@ -42,10 +42,12 @@ namespace CinemaApi
 
             //services
             services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<ITicketService, TicketService>();
 
             //repositories
             services.AddTransient(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
             services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<ISeatRepository, SeatRepository>();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -54,10 +56,14 @@ namespace CinemaApi
                 options.AddPolicy(name: Origins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200");
+                        builder.WithOrigins("http://localhost:4200")
+                        .WithMethods("GET", "POST", "OPTIONS")
+                        .AllowAnyHeader();
+                        
                     });
             });
 
+            services.AddHttpClient();
             services.AddSwaggerGen();
         }
 
