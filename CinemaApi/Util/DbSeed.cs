@@ -12,12 +12,12 @@ namespace CinemaApi.Util
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            context.Movies.AddRange(Movies());
+            context.Movies.AddRange(Movies(context));
 
-            context.SaveChanges();
+            context.SaveChanges();   
         }
 
-        private static List<Movie> Movies()
+        private static List<Movie> Movies(ApplicationDbContext context)
         {
             List<Movie> movies = new List<Movie>();
 
@@ -50,6 +50,20 @@ namespace CinemaApi.Util
             };
             movies.Add(starWars);
 
+            Movie lost = new Movie
+            {
+                Title = "Lost",
+                PosterUrl = "https://fwcdn.pl/fpo/38/34/133834/7177044.6.jpg",
+                Description = "Lost",
+                Category = Category.Action,
+                Duration = 50,
+                ScreeningTimes = new List<ScreeningTime>
+                {
+                    new ScreeningTime { Screening = DateTime.Now, Rows = GeneratePrettySeats(context)}
+                }
+            };
+            movies.Add(lost);
+
             return movies;
         }
 
@@ -74,6 +88,50 @@ namespace CinemaApi.Util
             }
 
             return generatedRows;
+        }
+
+        private static List<Row> GeneratePrettySeats(ApplicationDbContext context)
+        {
+            List<Row> rows = new List<Row>();
+            int[][] seats = new int[][]
+            {
+                new int []{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                new int []{ 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 },
+                new int []{ 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 },
+                new int []{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                new int []{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                new int []{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                new int []{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            };
+
+            foreach (var rawRow in seats)
+            {
+                Row row = new Row();
+                List<Seat> rowSeats = new List<Seat>();
+
+                foreach (int seatStatus in rawRow)
+                {
+                    if (seatStatus == 1)
+                    {
+                        Seat seat = new Seat { Status = SeatStatus.Free };
+                        rowSeats.Add(seat);
+                        context.Seats.Add(seat);
+                    }
+                    else
+                    {
+                        Seat seat = new Seat { Status = SeatStatus.Excluded };
+                        rowSeats.Add(seat);
+                        context.Seats.Add(seat);
+                    }
+
+                    context.SaveChanges();
+                }
+
+                row.Seats = rowSeats;
+                rows.Add(row);
+            }
+
+            return rows;
         }
     }
 }
