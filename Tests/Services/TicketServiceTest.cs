@@ -22,6 +22,7 @@ namespace Tests.Services
             seatRepository.Setup(m => m.GetByID(1)).Returns(new Seat() { ID = 1, Status = SeatStatus.Free });
             seatRepository.Setup(m => m.GetByID(2)).Returns(new Seat() { ID = 2, Status = SeatStatus.Free });
         }
+
         [Fact]
         public void ShouldAcceptTicketAndChangeSeatStatus()
         {
@@ -41,6 +42,25 @@ namespace Tests.Services
             Assert.True(isTicketAccepted);
             Assert.Equal(SeatStatus.Taken, seatRepository.Object.GetByID(1).Status);
             Assert.Equal(SeatStatus.Taken, seatRepository.Object.GetByID(2).Status);
+        }
+
+        [Fact]
+        public void ShouldNotAcceptTicketWhenSeatNotExists()
+        {
+            //Arange
+            ITicketService ticketService = GetTicketService();
+
+            TicketDTO ticket = new TicketDTO
+            {
+                Title = "Title",
+                Date = DateTime.Now,
+                SelectedSeats = new int[] { 1, 2, 8 }
+            };
+            //Act
+            bool isTicketAccepted = ticketService.AcceptTicket(ticket);
+
+            //Assert
+            Assert.False(isTicketAccepted);
         }
 
         private TicketService GetTicketService()

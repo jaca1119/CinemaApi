@@ -45,11 +45,13 @@ namespace CinemaApi
             //services
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<IHallService, HallService>();
 
             //repositories
             services.AddTransient(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
             services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<ISeatRepository, SeatRepository>();
+            services.AddTransient<IHallRepository, HallRepository>();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -59,7 +61,7 @@ namespace CinemaApi
                     builder =>
                     {
                         builder.WithOrigins("http://localhost:4200")
-                        .WithMethods("GET", "POST", "OPTIONS")
+                        .WithMethods("GET", "POST", "PUT", "OPTIONS")
                         .AllowAnyHeader();
                         
                     });

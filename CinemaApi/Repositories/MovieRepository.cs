@@ -15,7 +15,10 @@ namespace CinemaApi.Repositories
 
         public override IEnumerable<Movie> GetAll()
         {
-            return dbSet.Include(e => e.ScreeningTimes).ThenInclude(s => s.Rows).ThenInclude(r => r.Seats).ToList();
+            return dbSet
+                .Include(e => e.ScreeningTimes).ThenInclude(s => s.Rows).ThenInclude(r => r.Seats)
+                .Include(e => e.ScreeningTimes).ThenInclude(s => s.Hall)
+                .ToList();
         }
     }
 }

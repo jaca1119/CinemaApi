@@ -6,5 +6,6 @@ namespace CinemaApi.Services.Interfaces
     public interface IMovieService
     {
         IEnumerable<MovieDTO> GetAllMovies();
+        bool CreateMovie(DTOs.Input.CreateMovieDTO createMovie);
     }
 }

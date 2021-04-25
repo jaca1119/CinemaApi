@@ -7,6 +7,6 @@ namespace CinemaApi.Repositories.Interfaces
         TEntity GetByID(object id);
         IEnumerable<TEntity> GetAll();
         void Insert(TEntity entity);
-        void SaveChanges();
+        int SaveChanges();
     }
 }

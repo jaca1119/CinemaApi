@@ -7,6 +7,7 @@ namespace CinemaApi.Models
     {
         [Key]
         public int ID { get; set; }
+        public int RowIndex { get; set; }
         public List<Seat> Seats { get; set; }
     }
 }

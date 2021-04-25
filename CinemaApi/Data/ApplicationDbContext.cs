@@ -14,6 +14,7 @@ namespace CinemaApi.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Row> Rows { get; set; }
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<Hall> Halls { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

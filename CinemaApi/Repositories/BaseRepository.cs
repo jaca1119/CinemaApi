@@ -32,9 +32,9 @@ namespace CinemaApi.Repositories
             dbSet.Add(entity);
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
-            context.SaveChanges();
+            return context.SaveChanges();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace CinemaApi.Models
     {
         [Key]
         public int ID { get; set; }
+        public int ColumnIndex { get; set; }
         public SeatStatus Status { get; set; }
     }
 }
