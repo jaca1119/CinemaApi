@@ -1,4 +1,5 @@
-﻿using CinemaApi.Models;
+﻿using CinemaApi.Controllers.Attributes;
+using CinemaApi.Models;
 using CinemaApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,12 +25,14 @@ namespace CinemaApi.Controllers
             return Ok(hallService.GetAll());
         }
 
+        [JwtAuthorize]
         [HttpPost]
         public ActionResult<List<Hall>> CreateHall(Hall hall)
         {
             return Created("", hallService.CreateHall(hall));
         }
 
+        [JwtAuthorize]
         [HttpPut]
         public ActionResult<List<Hall>> UpdateHall(Hall hall)
         {

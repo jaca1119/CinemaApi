@@ -1,6 +1,8 @@
-﻿using CinemaApi.DTOs.Input;
+﻿using CinemaApi.Controllers.Attributes;
+using CinemaApi.DTOs.Input;
 using CinemaApi.DTOs.Output;
 using CinemaApi.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -23,6 +25,7 @@ namespace CinemaApi.Controllers
             return Ok(movieService.GetAllMovies());
         }
 
+        [JwtAuthorize]
         [HttpPost]
         public ActionResult<List<MovieDTO>> CreateMovie(CreateMovieDTO createMovie)
         {

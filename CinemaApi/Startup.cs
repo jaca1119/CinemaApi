@@ -1,9 +1,11 @@
 using AutoMapper;
 using CinemaApi.Data;
+using CinemaApi.Models;
 using CinemaApi.Repositories;
 using CinemaApi.Repositories.Interfaces;
 using CinemaApi.Services;
 using CinemaApi.Services.Interfaces;
+using CinemaApi.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -42,10 +44,13 @@ namespace CinemaApi
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
+            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
+
             //services
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IHallService, HallService>();
+            services.AddScoped<IUserService, UserService>();
 
             //repositories
             services.AddTransient(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
@@ -62,8 +67,7 @@ namespace CinemaApi
                     {
                         builder.WithOrigins("http://localhost:4200")
                         .WithMethods("GET", "POST", "PUT", "OPTIONS")
-                        .AllowAnyHeader();
-                        
+                        .AllowAnyHeader();                    
                     });
             });
 
@@ -102,6 +106,8 @@ namespace CinemaApi
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
