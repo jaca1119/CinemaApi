@@ -35,38 +35,16 @@ namespace CinemaApi.Services
 
             foreach (var screening in createMovie.ScreeningTimes)
             {
-                ScreeningTime screeningTime = new ScreeningTime
-                {
-                    Screening = screening.Date
-                };
-
-                Hall hall = hallRepository.GetByID(screening.HallId);
-
-                if (hall == null)
-                    return false;
-                screeningTime.Hall = hall;
-
-                CopySeatsFromHall(screeningTime, hall);
+                ScreeningTime screeningTime = ScreeningTimeBuilder.Init(hallRepository)
+                    .SetDate(screening.Date)
+                    .SetSeatsFromHall(screening.HallId)
+                    .Build();
                 
                 movie.ScreeningTimes.Add(screeningTime);
             }
 
             movieRepository.Insert(movie);
             return movieRepository.SaveChanges() > 0;
-        }
-
-        private void CopySeatsFromHall(ScreeningTime screeningTime, Hall hall)
-        {
-            screeningTime.Rows = hall.Rows.Select(r => new Row
-            {
-                RowIndex = r.RowIndex,
-                Seats = r.Seats
-                        .Select(s => new Seat
-                        {
-                            ColumnIndex = s.ColumnIndex,
-                            Status = s.Status
-                        }).ToList()
-            }).ToList();
         }
 
         public IEnumerable<MovieDTO> GetAllMovies()
