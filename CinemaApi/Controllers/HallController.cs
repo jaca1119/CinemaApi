@@ -1,4 +1,5 @@
 ﻿using CinemaApi.Controllers.Attributes;
+using CinemaApi.DTOs.Input;
 using CinemaApi.Models;
 using CinemaApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace CinemaApi.Controllers
 
         [JwtAuthorize]
         [HttpPut]
-        public ActionResult<List<Hall>> UpdateHall(Hall hall)
+        public ActionResult<List<Hall>> UpdateHall(UpdateHallDTO hall)
         {
             return Ok(hallService.UpdateHall(hall));
         }

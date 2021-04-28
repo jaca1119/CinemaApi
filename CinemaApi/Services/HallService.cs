@@ -1,4 +1,5 @@
-﻿using CinemaApi.Models;
+﻿using CinemaApi.DTOs.Input;
+using CinemaApi.Models;
 using CinemaApi.Repositories.Interfaces;
 using CinemaApi.Services.Interfaces;
 using System;
@@ -28,7 +29,7 @@ namespace CinemaApi.Services
             return hallRepository.GetAll();
         }
 
-        public bool UpdateHall(Hall updateHall)
+        public bool UpdateHall(UpdateHallDTO updateHall)
         {
             Hall hall = hallRepository.GetByID(updateHall.Id);
 
@@ -36,7 +37,7 @@ namespace CinemaApi.Services
                 return false;
 
             hall.HallName = updateHall.HallName;
-            hall.Rows = updateHall.Rows;
+            hall.Rows = updateHall.Rows.Select(r => new Row { RowIndex = r.RowIndex, Seats = r.Seats.Select(s => new Seat { ColumnIndex = s.ColumnIndex, Status = s.Status}).ToList()}).ToList();
 
             return hallRepository.SaveChanges() > 0;
         }

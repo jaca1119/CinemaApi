@@ -1,4 +1,5 @@
-﻿using CinemaApi.Models;
+﻿using CinemaApi.DTOs.Input;
+using CinemaApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace CinemaApi.Services.Interfaces
     {
         IEnumerable<Hall> GetAll();
         bool CreateHall(Hall hall);
-        bool UpdateHall(Hall hall);
+        bool UpdateHall(UpdateHallDTO hall);
     }
 }

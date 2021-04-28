@@ -1,4 +1,5 @@
 ﻿using CinemaApi.Data;
+using CinemaApi.DTOs.Input;
 using CinemaApi.Models;
 using CinemaApi.Repositories;
 using CinemaApi.Repositories.Interfaces;
@@ -84,7 +85,7 @@ namespace Tests.Services
             hallService.CreateHall(hall);
 
             string updatedHallName = "UpdatedName";
-            Hall updateHall = new Hall { Id = hall.Id, HallName = updatedHallName, Rows = new List<Row> { new Row { RowIndex = 1, Seats = new List<Seat> { new Seat { ColumnIndex = 1, Status = SeatStatus.Excluded } } } } };
+            UpdateHallDTO updateHall = new UpdateHallDTO { Id = hall.Id, HallName = updatedHallName, Rows = new List<RowDTO> { new RowDTO { RowIndex = 1, Seats = new List<SeatDTO> { new SeatDTO { ColumnIndex = 1, Status = SeatStatus.Excluded } } } } };
 
             //Act
             hallService.UpdateHall(updateHall);
