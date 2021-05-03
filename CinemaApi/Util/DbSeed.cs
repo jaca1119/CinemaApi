@@ -15,8 +15,33 @@ namespace CinemaApi.Util
             List<Hall> halls = AddHalls(context);
             context.Halls.AddRange(halls);
             context.Movies.AddRange(Movies(context, halls));
+            context.Snacks.AddRange(AddSnacks());
 
             context.SaveChanges();   
+        }
+
+        private static List<Snack> AddSnacks()
+        {
+            List<Snack> snacks = new List<Snack>();
+            snacks.Add(new Snack
+            {
+                Name = "popcorn",
+                imageURL = "https://static5.redcart.pl/templates/images/thumb/12319/1500/1500/pl/0/templates/images/products/12319/97fd886ca074c2e25d761c415f8753b9.jpg"
+            });
+
+            snacks.Add(new Snack
+            {
+                Name = "soda drink",
+                imageURL = "https://img.redro.pl/plakaty/glasses-of-cola-and-orange-soda-drink-and-lemonade-400-165399885.jpg"
+            });
+
+            snacks.Add(new Snack
+            {
+                Name = "nachos",
+                imageURL = "https://ocdn.eu/pulscms-transforms/1/IgLk9kpTURBXy9hZmI1ZTUyMTg1MmY4NDEzNmRlNTQ2MTRlMTdlNmU5Mi5qcGeTlQMAQs0En80CmZMFzQMUzQG8kwmmYmY0OTkzBoGhMAE/nachos-z-sosem-serowym.jpg"
+            });
+
+            return snacks;
         }
 
         private static List<Hall> AddHalls(ApplicationDbContext context)

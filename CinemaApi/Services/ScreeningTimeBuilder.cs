@@ -9,7 +9,7 @@ namespace CinemaApi.Services
 {
     public class ScreeningTimeBuilder
     {
-        private static ScreeningTime screeningTime = new ScreeningTime();
+        private ScreeningTime screeningTime = new ScreeningTime();
         private readonly IHallRepository hallRepository;
 
         public ScreeningTimeBuilder(IHallRepository hallRepository)

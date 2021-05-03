@@ -51,12 +51,14 @@ namespace CinemaApi
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IHallService, HallService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISnackService, SnackService>();
 
             //repositories
             services.AddTransient(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
             services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<ISeatRepository, SeatRepository>();
             services.AddTransient<IHallRepository, HallRepository>();
+            services.AddTransient<ISnackRepository, SnackRepository>();
 
             services.AddAutoMapper(typeof(Startup));
 
