@@ -52,6 +52,7 @@ namespace CinemaApi.Services
             return movieRepository.GetAll()
                 .Select(x => new MovieDTO
                 {
+                    Id = x.Id,
                     Category = x.Category.ToString(),
                     Description = x.Description,
                     Duration = x.Duration,

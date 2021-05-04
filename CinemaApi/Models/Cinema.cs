@@ -9,6 +9,6 @@ namespace CinemaApi.Models
     public class Cinema
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
     }
 }

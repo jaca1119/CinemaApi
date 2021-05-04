@@ -19,8 +19,8 @@ namespace Tests.Services
         public TicketServiceTest()
         {
             seatRepository = new Mock<ISeatRepository>();
-            seatRepository.Setup(m => m.GetByID(1)).Returns(new Seat() { ID = 1, Status = SeatStatus.Free });
-            seatRepository.Setup(m => m.GetByID(2)).Returns(new Seat() { ID = 2, Status = SeatStatus.Free });
+            seatRepository.Setup(m => m.GetByID(1)).Returns(new Seat() { Id = 1, Status = SeatStatus.Free });
+            seatRepository.Setup(m => m.GetByID(2)).Returns(new Seat() { Id = 2, Status = SeatStatus.Free });
         }
 
         [Fact]
