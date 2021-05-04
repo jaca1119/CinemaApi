@@ -55,6 +55,60 @@ namespace Tests.Services
             Assert.All(createdMovie.ScreeningTimes[0].Rows, r => rows.Any(x => x.RowIndex == r.RowIndex));
         }
 
+        [Fact]
+        public void ShouldUpdateMovie()
+        {
+            //Arrange
+            List<Row> rows = CreateRows();
+            Hall hall = CreateAndSaveHall(rows);
+            CreateAndSaveHall(rows);
+            CreateMovieDTO createMovieDto = CreateMovieDTODefault(hall.Id);
+            movieService.CreateMovie(createMovieDto);
+
+            UpdateMovieDTO updateMovieDTO = CreaUpdateMovieDTO();
+
+            //Act
+            movieService.UpdateMovie(updateMovieDTO);
+
+            //Assert
+            Movie updatedMovie = movieRepository.GetByID(1);
+
+            Assert.Single(movieRepository.GetAll());
+            Assert.Equal("UpdatedTitle", updatedMovie.Title);
+            Assert.Equal("UpdatedPoster", updatedMovie.PosterUrl);
+            Assert.Equal(100, updatedMovie.Duration);
+            Assert.Equal(Category.SciFi, updatedMovie.Category);
+            Assert.Equal("UpdatedDescription", updatedMovie.Description);
+            Assert.Equal(1, updatedMovie.Id);
+            Assert.Equal(2, updatedMovie.ScreeningTimes.Count);           
+        }
+
+        private UpdateMovieDTO CreaUpdateMovieDTO()
+        {
+            return new UpdateMovieDTO
+            {
+                Id = 1,
+                Category = Category.SciFi.ToString(),
+                Description = "UpdatedDescription",
+                Duration = 100,
+                PosterUrl = "UpdatedPoster",
+                Title = "UpdatedTitle",
+                ScreeningTimes = new List<CreateScreaningDTO>
+                {
+                    new CreateScreaningDTO
+                    {
+                        Date = DateTime.Now.AddDays(1),
+                        HallId = 2
+                    },
+                    new CreateScreaningDTO
+                    {
+                        Date = DateTime.Now.AddDays(2),
+                        HallId = 2
+                    }
+                }
+            };
+        }
+
         private List<Row> CreateRows()
         {
             return new List<Row>
@@ -94,11 +148,16 @@ namespace Tests.Services
         {
             return new CreateMovieDTO
             {
+                Title = "Title",
+                Description = "Description",
+                Duration = 1,
+                PosterUrl = "PosterUrl",
                 Category = Category.Action.ToString(),
                 ScreeningTimes = new List<CreateScreaningDTO>
                 {
                     new CreateScreaningDTO
                     {
+                        Date = DateTime.Now,
                         HallId = hallId
                     }
                 }

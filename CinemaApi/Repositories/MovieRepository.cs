@@ -20,5 +20,10 @@ namespace CinemaApi.Repositories
                 .Include(e => e.ScreeningTimes).ThenInclude(s => s.Hall)
                 .ToList();
         }
+
+        public override Movie GetByID(object id)
+        {
+            return dbSet.Include(e => e.ScreeningTimes).FirstOrDefault(m => m.Id == (int)id);
+        }
     }
 }

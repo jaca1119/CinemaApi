@@ -27,9 +27,16 @@ namespace CinemaApi.Controllers
 
         [JwtAuthorize]
         [HttpPost]
-        public ActionResult<List<MovieDTO>> CreateMovie(CreateMovieDTO createMovie)
+        public ActionResult<bool> CreateMovie(CreateMovieDTO createMovie)
         {
             return Created("", movieService.CreateMovie(createMovie));
+        }
+
+        [JwtAuthorize]
+        [HttpPut]
+        public ActionResult<bool> UpdateMovie(UpdateMovieDTO updateMovieDTO)
+        {
+            return Created("", movieService.UpdateMovie(updateMovieDTO));
         }
     }
 }

@@ -61,5 +61,30 @@ namespace CinemaApi.Services
                     ScreeningTimes = x.ScreeningTimes
                 });
         }
+
+        public bool UpdateMovie(UpdateMovieDTO updateMovieDTO)
+        {
+            Movie movie = movieRepository.GetByID(updateMovieDTO.Id);
+            movie.Title = updateMovieDTO.Title;
+            movie.Category = Enum.Parse<Category>(updateMovieDTO.Category);
+            movie.Description = updateMovieDTO.Description;
+            movie.Duration = updateMovieDTO.Duration;
+            movie.PosterUrl = updateMovieDTO.PosterUrl;
+
+            movie.ScreeningTimes.Clear();
+                
+
+            foreach (var screening in updateMovieDTO.ScreeningTimes)
+            {
+                ScreeningTime screeningTime = ScreeningTimeBuilder.Init(hallRepository)
+                    .SetDate(screening.Date)
+                    .SetSeatsFromHall(screening.HallId)
+                    .Build();
+
+                movie.ScreeningTimes.Add(screeningTime);
+            }
+
+            return movieRepository.SaveChanges() > 0;
+        }
     }
 }

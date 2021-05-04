@@ -1,4 +1,5 @@
-﻿using CinemaApi.DTOs.Output;
+﻿using CinemaApi.DTOs.Input;
+using CinemaApi.DTOs.Output;
 using System.Collections.Generic;
 
 namespace CinemaApi.Services.Interfaces
@@ -7,5 +8,6 @@ namespace CinemaApi.Services.Interfaces
     {
         IEnumerable<MovieDTO> GetAllMovies();
         bool CreateMovie(DTOs.Input.CreateMovieDTO createMovie);
+        bool UpdateMovie(UpdateMovieDTO updateMovieDTO);
     }
 }
