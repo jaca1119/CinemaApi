@@ -26,7 +26,7 @@ namespace CinemaApi.Util
         {
             string token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (token != null)
+            if (token != null && token != string.Empty)
                 AttachUserToContext(context, token);
 
             await next(context);

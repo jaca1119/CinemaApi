@@ -59,6 +59,7 @@ namespace CinemaApi
             services.AddTransient<ISeatRepository, SeatRepository>();
             services.AddTransient<IHallRepository, HallRepository>();
             services.AddTransient<ISnackRepository, SnackRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddAutoMapper(typeof(Startup));
 

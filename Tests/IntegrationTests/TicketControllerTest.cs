@@ -36,8 +36,8 @@ namespace Tests.IntegrationTests
         public async void AcceptTicket()
         {
             //Arrange
-            TicketDTO ticket = new TicketDTO() {Title = "title" };
-            string json = JsonConvert.SerializeObject(ticket);
+            OrderDTO orderDTO = new OrderDTO() { MovieId = 1 };
+            string json = JsonConvert.SerializeObject(orderDTO);
 
             //Act
             var response = await Client.PostAsync("api/ticket", new StringContent(json, Encoding.UTF8, "application/json"));

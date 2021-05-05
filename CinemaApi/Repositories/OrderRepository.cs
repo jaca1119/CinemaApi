@@ -1,5 +1,5 @@
 ﻿using CinemaApi.Data;
-using CinemaApi.Models.Snacks;
+using CinemaApi.Models.Orders;
 using CinemaApi.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CinemaApi.Repositories
 {
-    public class SnackRepository : BaseRepository<Snack>, ISnackRepository
+    public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        public SnackRepository(ApplicationDbContext context) : base(context)
+        public OrderRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

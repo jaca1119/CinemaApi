@@ -1,5 +1,5 @@
 ﻿using CinemaApi.Data;
-using CinemaApi.Models;
+using CinemaApi.Models.Snacks;
 using CinemaApi.Repositories;
 using CinemaApi.Repositories.Interfaces;
 using CinemaApi.Services;

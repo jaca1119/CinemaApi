@@ -21,9 +21,9 @@ namespace CinemaApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProcessTicket(TicketDTO ticketDTO)
+        public IActionResult ProcessTicket(OrderDTO orderDTO)
         {
-            return Created("", ticketService.AcceptTicket(ticketDTO));
+            return Created("", ticketService.AcceptTicket(orderDTO));
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using CinemaApi.Data;
 using CinemaApi.Models;
+using CinemaApi.Models.Snacks;
 using System;
 using System.Collections.Generic;
 
@@ -78,8 +79,8 @@ namespace CinemaApi.Util
                 Category = Category.Action,
                 Duration = 118,
                 ScreeningTimes = new List<ScreeningTime>
-                { new ScreeningTime { Screening = DateTime.Now.AddDays(1), Rows = GenerateRandomSeats(12, 15), Hall = halls[random.Next(halls.Count)] },
-                    new ScreeningTime { Screening = DateTime.Now.AddDays(1).AddHours(2).AddMinutes(10), Rows = GenerateRandomSeats(10, 15), Hall = halls[random.Next(halls.Count)] }
+                { new ScreeningTime { Screening = DateTimeOffset.Now.AddDays(1), Rows = GenerateRandomSeats(12, 15), Hall = halls[random.Next(halls.Count)] },
+                    new ScreeningTime { Screening = DateTimeOffset.Now.AddDays(1).AddHours(2).AddMinutes(10), Rows = GenerateRandomSeats(10, 15), Hall = halls[random.Next(halls.Count)] }
                 }
             };
             movies.Add(shawshank);
@@ -93,8 +94,8 @@ namespace CinemaApi.Util
                 Duration = 180,
                 ScreeningTimes = new List<ScreeningTime>
                 {
-                    new ScreeningTime { Screening = DateTime.Now.AddDays(2), Rows = GenerateRandomSeats(4, 5), Hall = halls[random.Next(halls.Count)] },
-                    new ScreeningTime { Screening = DateTime.Now.AddDays(2).AddHours(5).AddMinutes(32), Rows = GenerateRandomSeats(5, 5), Hall = halls[random.Next(halls.Count)] }
+                    new ScreeningTime { Screening = DateTimeOffset.Now.AddDays(2), Rows = GenerateRandomSeats(4, 5), Hall = halls[random.Next(halls.Count)] },
+                    new ScreeningTime { Screening = DateTimeOffset.Now.AddDays(2).AddHours(5).AddMinutes(32), Rows = GenerateRandomSeats(5, 5), Hall = halls[random.Next(halls.Count)] }
                 }
             };
             movies.Add(starWars);
@@ -108,7 +109,7 @@ namespace CinemaApi.Util
                 Duration = 50,
                 ScreeningTimes = new List<ScreeningTime>
                 {
-                    new ScreeningTime { Screening = DateTime.Now, Rows = GeneratePrettySeats(context), Hall = halls[random.Next(halls.Count)]}
+                    new ScreeningTime { Screening = DateTimeOffset.Now, Rows = GeneratePrettySeats(context), Hall = halls[random.Next(halls.Count)]}
                 }
             };
             movies.Add(lost);

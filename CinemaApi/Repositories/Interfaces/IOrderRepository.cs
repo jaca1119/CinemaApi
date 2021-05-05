@@ -1,4 +1,4 @@
-﻿using CinemaApi.Models.Snacks;
+﻿using CinemaApi.Models.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaApi.Repositories.Interfaces
 {
-    public interface ISnackRepository: IRepositoryBase<Snack>
+    public interface IOrderRepository: IRepositoryBase<Order>
     {
     }
 }

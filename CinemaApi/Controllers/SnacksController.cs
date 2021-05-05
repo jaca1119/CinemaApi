@@ -1,4 +1,4 @@
-﻿using CinemaApi.Models;
+﻿using CinemaApi.Models.Snacks;
 using CinemaApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;

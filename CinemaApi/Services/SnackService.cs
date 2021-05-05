@@ -1,4 +1,4 @@
-﻿using CinemaApi.Models;
+﻿using CinemaApi.Models.Snacks;
 using CinemaApi.Repositories.Interfaces;
 using CinemaApi.Services.Interfaces;
 using System;

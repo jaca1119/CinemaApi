@@ -9,7 +9,7 @@ namespace CinemaApi.Models
         [Key]
         public int Id { get; set; }
         public Hall Hall { get; set; }
-        public DateTime Screening { get; set; }
+        public DateTimeOffset Screening { get; set; }
         public List<Row> Rows { get; set; }
     }
 }

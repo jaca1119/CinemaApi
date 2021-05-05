@@ -7,6 +7,6 @@ namespace CinemaApi.Services.Interfaces
 {
     public interface ITicketService
     {
-        bool AcceptTicket(DTOs.Input.TicketDTO ticket);
+        bool AcceptTicket(DTOs.Input.OrderDTO orderDTO);
     }
 }

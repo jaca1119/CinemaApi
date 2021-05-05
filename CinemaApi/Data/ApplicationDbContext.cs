@@ -1,4 +1,6 @@
 ﻿using CinemaApi.Models;
+using CinemaApi.Models.Orders;
+using CinemaApi.Models.Snacks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,7 @@ namespace CinemaApi.Data
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Snack> Snacks { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

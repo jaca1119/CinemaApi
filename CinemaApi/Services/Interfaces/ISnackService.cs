@@ -1,4 +1,4 @@
-﻿using CinemaApi.Models;
+﻿using CinemaApi.Models.Snacks;
 using System.Collections.Generic;
 
 namespace CinemaApi.Services.Interfaces
