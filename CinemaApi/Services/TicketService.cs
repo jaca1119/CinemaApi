@@ -26,11 +26,11 @@ namespace CinemaApi.Services
             this.snackRepository = snackRepository;
         }
 
-        public bool AcceptTicket(OrderDTO orderDTO)
+        public int? AcceptTicket(OrderDTO orderDTO)
         {
             Movie movie = movieRepository.GetByID(orderDTO.MovieId);
             if (movie == null)
-                return false;
+                return null;
 
 
             List<Seat> seats = new List<Seat>();
@@ -39,7 +39,7 @@ namespace CinemaApi.Services
                 Seat seat = seatRepository.GetByID(seatId);
 
                 if (seat == null)
-                    return false;
+                    return null;
 
                 seat.Status = SeatStatus.Taken;
                 seats.Add(seat);
@@ -50,7 +50,7 @@ namespace CinemaApi.Services
             {
                 Snack orderedSnack = snackRepository.GetByID(snack.Id);
                 if (orderedSnack == null)
-                    return false;
+                    return null;
 
                 snackOrders.Add(new SnackOrder
                 {
@@ -71,8 +71,9 @@ namespace CinemaApi.Services
             };
 
             orderRepository.Insert(order);
+            orderRepository.SaveChanges();
 
-            return orderRepository.SaveChanges() > 0;
+            return order.Id;
         }
     }
 }

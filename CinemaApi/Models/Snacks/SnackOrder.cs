@@ -14,6 +14,5 @@ namespace CinemaApi.Models.Snacks
         public Snack Snack { get; set; }
         public int Quantity { get; set; }
         public Size Size { get; set; }
-
     }
 }

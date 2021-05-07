@@ -74,10 +74,10 @@ namespace Tests.Services
 
 
             //Act
-            bool isTicketAccepted = ticketService.AcceptTicket(orderDTO);
+            int? acceptedOrderId = ticketService.AcceptTicket(orderDTO);
 
             //Assert
-            Assert.True(isTicketAccepted);
+            Assert.True(acceptedOrderId.HasValue);
             Assert.Equal(SeatStatus.Taken, seatRepository.GetByID(1).Status);
             Assert.Equal(SeatStatus.Taken, seatRepository.GetByID(2).Status);
         }
@@ -94,10 +94,10 @@ namespace Tests.Services
             };
 
             //Act
-            bool isTicketAccepted = ticketService.AcceptTicket(orderDTO);
+            int? acceptedOrderId = ticketService.AcceptTicket(orderDTO);
 
             //Assert
-            Assert.False(isTicketAccepted);
+            Assert.False(acceptedOrderId.HasValue);
         }
 
         [Fact]
@@ -114,12 +114,12 @@ namespace Tests.Services
             };
 
             //Act
-            bool isTicketAccepted = ticketService.AcceptTicket(orderDTO);
+            int? acceptedOrderId = ticketService.AcceptTicket(orderDTO);
 
             //Assert
             Order order = orderRepository.GetByID(1);
 
-            Assert.True(isTicketAccepted);
+            Assert.True(acceptedOrderId.HasValue);
 
             Assert.NotNull(order);
             Assert.NotNull(order.Movie);
