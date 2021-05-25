@@ -55,6 +55,7 @@ namespace Tests.Services
             Assert.Equal(SeatStatus.Free, seats[0].Status);
             Assert.Equal(SeatStatus.Excluded, seats[1].Status);
             Assert.Equal(SeatStatus.Free, seats[2].Status);
+            Assert.Equal(hall.Rows[0].Seats.Count, applicationDbContext.Seats.Count());
         }
 
         [Fact]
